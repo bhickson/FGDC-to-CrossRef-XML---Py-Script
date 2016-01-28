@@ -1,0 +1,1 @@
+Python script created to write a new XML file following the CrossRef 4.3.0 schema.  Values for the new xml file are pulled from existing xml files following the FGDC schema. Meant to be run from the command line with an input directory and output file name as arguments.
