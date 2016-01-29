@@ -1,5 +1,7 @@
 #!/usr/local/bin/python2.7
 
+##The most current version of this file is available on GitHub here: https://github.com/bhickson/FGDC-to-CrossRef-XML---Py-Script
+
 import sys, argparse, os, time
 import xml.etree.ElementTree as ET
 from xml.dom import minidom as md
@@ -13,18 +15,18 @@ args = parser.parse_args()
 inFolder = str(args.inputDir)
 outFile = str(args.outputFile)
 
-if not os.path.exists(inFolder):
-    print "Input Directory specified does not exist.  Exiting"
-    sys.exit
+if not os.path.isdir(inFolder):
+    errorText = "Input Directory specified does not exist.  Exiting"
+    sys.exit(errorText)
 
 if not outFile.split("/")[-1].endswith(".xml"):
     print "Output File specified should have xml extension.  Renaming to " + outFile.split("/")[-1] + ".xml"
     outFile += ".xml"
 
 if os.path.exists(outFile):
-    if outFile.split("/")[-1].split(".") > 2:
-        print "Output file name contains multiple '.'. Please re-run with new file name."
-        sys.exit
+    if len(outFile.split("/")[-1].split(".")) > 2:
+        errorText = "Output file name contains multiple '.'. Please re-run with new file name."
+        sys.exit(errorText)
     else:
         outFileName = outFile.split("/")[-1].split(".")[0] + "-new.xml"
         print "Specified output xml file already exists.  Renaming to " + outFileName
@@ -136,8 +138,8 @@ for root, dirs, files in os.walk(inFolder):
                     resdesc = resdesc_Elem.text
                 else:
                     """Change print to print to command line"""
-                    print "FAIL Could not find resdesc element for file"
-                    sys.exit()
+                    errorText = "FAIL Could not find resdesc element for file"
+                    sys.exit(errorText)
 
             ftname_Elems = [elem for elem in treeRoot.getiterator() if elem.tag == "ftname" ]
             ftname = ftname_Elems[0].text
