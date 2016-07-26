@@ -56,7 +56,6 @@ def writeToFile(x):
                 except:
 		    pass
                     #print "Failed for", elem.tag  #Fails on empty tags. E.g. <ftname />
-    
     getChildren(tRoot)
     ET.register_namespace("","http://www.crossref.org/schema/4.3.0")
     newTree = ET.ElementTree(xmlFromString)
@@ -228,8 +227,6 @@ for root, dirs, files in os.walk(inFolder):
 
             database_Elem.append(dataset_Elem)
             del originators  # Deleting originators variable because of try statement (above) will not reset originators for next file
-
-#BEAUTIFY THE NEW XML CONTENT BEFORE WRITING TO FILE
 
 
 writeToFile(doi_batch_Elem)
